@@ -1,0 +1,26 @@
+name: Process JSON Dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      json_payload:
+        description: 'JSON payload to process'
+        required: true
+        default: '{}'
+
+jobs:
+  process-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract JSON payload
+        id: extract_json
+        run: |
+          echo "${{ github.event.inputs.json_payload }}" > payload.json
+          cat payload.json
+
+      - name: Print JSON content
+        run: |
+          echo "Received JSON payload:"
+          cat payload.json
+
+      # Add more steps here to process the JSON payload as required
